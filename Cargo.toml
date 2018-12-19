@@ -1,0 +1,15 @@
+[package]
+name = "chat"
+version = "0.1.0"
+authors = ["zipkr <zipkr@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rocket = "0.4.0"
+serde = "1.0"
+serde_derive = "1.0"
+
+[dependencies.rocket_contrib]
+version = "0.4.0"
+default-features = false
+features = ["json"]
