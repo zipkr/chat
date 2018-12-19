@@ -5,12 +5,9 @@
 
 extern crate rocket_contrib;
 extern crate serde; 
+extern crate reqwest;
 
-use std::io::Read;
 use rocket_contrib::json::Json;
-use rocket::{Request, Data, Outcome, Outcome::*};
-use rocket::data::{self, FromDataSimple};
-use rocket::http::{Status, ContentType};
 
 const HOSTS: &'static [&'static str] = &["http://localhost:8000", "http://localhost:8001"];
 
@@ -29,6 +26,11 @@ fn index() -> &'static str {
 fn receive_message<'a>(message: Json<Message>) -> &'static str {
     println!("{}", message.text);
     println!("{}", message.host);
+
+    let body = reqwest::get(&message.host).unwrap()
+        .text().unwrap();
+
+    println!("body = {:?}", body);
     "Message Received"
 } 
 
